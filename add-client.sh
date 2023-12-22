@@ -66,7 +66,7 @@ fi
 CLIENT_IP="$INTERNAL_SUBNET_PREFIX.$((PEER_ID + 1))"
 
 # Ask for Client Comment
-read -r -p "Enter a comment for this client (Ex.: \"MacBook Pro 16'' 2023\", \"Darina's iPad 12''\"): " CLIENT_COMMENT
+read -r -p "Enter a comment for this client (Ex.: \"MacBook Air 13'' 2015\", \"Cat's iPad 12''\"): " CLIENT_COMMENT
 if [ -z "$CLIENT_COMMENT" ]; then
     echo "Error: Comment can't be empty."
     exit 1
