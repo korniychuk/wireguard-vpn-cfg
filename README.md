@@ -7,10 +7,11 @@ A simple Docker Compose config and scripts to create a personal VPN on any VPS
 git clone https://github.com/korniychuk/wireguard-vpn-cfg.git wireguard-vpn
 cd wireguard-vpn
 
+./init.sh
+
 docker-compose up # check that it doesn't have errors and press Ctrl+C to exit
 docker-compose up -d
 
-./init.sh
 ./add-client.sh
 ```
 

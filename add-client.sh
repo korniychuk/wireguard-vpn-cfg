@@ -10,7 +10,7 @@ function die() {
     exit $code
 }
 
-[[ ! -f "$WG_CONF" ]] || die "Can't find $WG_CONF"
+[[ -f "$WG_CONF" ]] || die "Can't find $WG_CONF"
 
 # Read environment variables
 source .env
