@@ -21,9 +21,9 @@ source .env
 
 
 [[ "$INTERNAL_SUBNET" =~ \.0$ ]] || die "INTERNAL_SUBNET should end .0"
-declare -r INTERNAL_SUBNET_PREFIX="${INTERNAL_SUBNET%0*}"
+declare -r INTERNAL_SUBNET_PREFIX="${INTERNAL_SUBNET%.0*}"
 
-read -r -p "INTERNAL_SUBNET_PREFIX: $INTERNAL_SUBNET_PREFIX. Does this look good? Y/n: " response
+read -r -p "INTERNAL_SUBNET_PREFIX: '$INTERNAL_SUBNET_PREFIX'. Does this look good? Y/n: " response
 response=${response,,} # Convert response to lowercase
 # shellcheck disable=2181
 [[ $? -ne 0 ]] && die "Unexpected error. Mostly unsupported bash version."
@@ -34,7 +34,7 @@ response=${response,,} # Convert response to lowercase
 
 # Extract the last part of AllowedIPs to get the latest peer ID
 INTERNAL_SUBNET_PREFIX_REG="$(echo -n "$INTERNAL_SUBNET_PREFIX" | sed 's@\.@\\.@g')"
-LAST_IP_PART=$(grep -oP '^\s*AllowedIPs\s*=\s*'"$INTERNAL_SUBNET_PREFIX_REG"'\K\d+' "$WG_CONF" | sort -n | tail -1)
+LAST_IP_PART=$(grep -oP '^\s*AllowedIPs\s*=\s*'"$INTERNAL_SUBNET_PREFIX_REG"'\.\K\d+' "$WG_CONF" | sort -n | tail -1)
 if ! [[ "$LAST_IP_PART" =~ ^[0-9]+$ ]]; then
     echo "Warn! Can't extract a valid IP part for PEER_ID." >&2
 
