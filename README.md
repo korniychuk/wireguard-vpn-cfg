@@ -21,7 +21,7 @@ ssh-keygen -t ed25519
 cat ~/.ssh/id_ed25519.pub
 ```
 
-Add to [Deploy keys](./settings/keys/new) of **this repo**, **without** write access.
+Add to [Deploy keys](https://github.com/korniychuk/wireguard-vpn-cfg/settings/keys/new) of **this repo**, **without** write access.
 
 ```sh
 git clone git@github.com:korniychuk/wireguard-vpn-cfg.git wireguard-vpn
