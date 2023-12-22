@@ -38,10 +38,10 @@ LAST_IP_PART=$(grep -oP '^\s*AllowedIPs\s*=\s*'"$INTERNAL_SUBNET_PREFIX_REG"'\.\
 if ! [[ "$LAST_IP_PART" =~ ^[0-9]+$ ]]; then
     echo "Warn! Can't extract a valid IP part for PEER_ID." >&2
 
-    read -r -p "Do you want to use LAST_IP_PART=1 (first user)? Y/n: " response
+    read -r -p "Do you want to use LAST_IP_PART=2 (first user)? Y/n: " response
     response=${response,,} # Convert response to lowercase
     [[ "$response" =~ ^(yes|y| ) ]] || [[ -z "$response" ]] || die "Could not extract a valid IP part for PEER_ID"
-    LAST_IP_PART=1
+    LAST_IP_PART=2
 fi
 
 # Calculate the next PEER_ID by adding 1 to the last part of the IP
