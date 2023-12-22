@@ -4,6 +4,10 @@ declare -r DEFAULT_SERVER_PORT=51820
 declare -r DEFAULT_INTERNAL_SUBNET="10.13.13.0"
 
 function generate_dotenv() {
+  local SERVER_URL
+  local SERVER_PORT
+  local INTERNAL_SUBNET
+
   # Ask for VPN URL
   while true; do
       read -r -p "Enter the VPN URL (domain) [e.g., vpn.example.com]: " SERVER_URL
@@ -19,8 +23,16 @@ function generate_dotenv() {
   read -r -p "Enter the Server Port or press Enter for default [$DEFAULT_SERVER_PORT]: " SERVER_PORT
   SERVER_PORT=${SERVER_PORT:-$DEFAULT_SERVER_PORT}
 
-  read -r -p "Enter the Internal Subnet or press Enter for default [$DEFAULT_INTERNAL_SUBNET]: " INTERNAL_SUBNET
-  INTERNAL_SUBNET=${INTERNAL_SUBNET:-$DEFAULT_INTERNAL_SUBNET}
+  # Ask for Internal Subnet with validation
+  while true; do
+      read -r -p "Enter the Internal Subnet or press Enter for default [$DEFAULT_INTERNAL_SUBNET]: " INTERNAL_SUBNET
+      INTERNAL_SUBNET=${INTERNAL_SUBNET:-$DEFAULT_INTERNAL_SUBNET}
+      if [[ "$INTERNAL_SUBNET" =~ \.0$ ]]; then
+          break
+      else
+          echo "Invalid INTERNAL_SUBNET. It should end with '.0'. Please try again."
+      fi
+  done
 
   echo "Writing to .env file..."
   {
