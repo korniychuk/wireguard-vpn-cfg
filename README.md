@@ -14,8 +14,8 @@ cd wireguard-vpn
 
 ./init.sh
 
-docker-compose up # check that it doesn't have errors and press Ctrl+C to exit
-docker-compose up -d
+docker compose up # check that it doesn't have errors and press Ctrl+C to exit
+docker compose up -d
 
 ./add-client.sh
 ```

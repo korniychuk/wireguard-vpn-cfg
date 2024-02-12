@@ -76,9 +76,9 @@ fi
 mkdir -p ./config/peer${PEER_ID}
 
 # Generate keys for the new peer
-docker-compose exec -T wireguard wg genkey > ./config/peer${PEER_ID}/privatekey-peer${PEER_ID}
-docker-compose exec -T wireguard wg pubkey < ./config/peer${PEER_ID}/privatekey-peer${PEER_ID} > ./config/peer${PEER_ID}/publickey-peer${PEER_ID}
-docker-compose exec -T wireguard wg genpsk > ./config/peer${PEER_ID}/presharedkey-peer${PEER_ID}
+docker compose exec -T wireguard wg genkey > ./config/peer${PEER_ID}/privatekey-peer${PEER_ID}
+docker compose exec -T wireguard wg pubkey < ./config/peer${PEER_ID}/privatekey-peer${PEER_ID} > ./config/peer${PEER_ID}/publickey-peer${PEER_ID}
+docker compose exec -T wireguard wg genpsk > ./config/peer${PEER_ID}/presharedkey-peer${PEER_ID}
 
 # Verify key generation
 if [[ ! -s ./config/peer${PEER_ID}/privatekey-peer${PEER_ID} || ! -s ./config/peer${PEER_ID}/publickey-peer${PEER_ID} || ! -s ./config/peer${PEER_ID}/presharedkey-peer${PEER_ID} ]]; then
@@ -113,7 +113,7 @@ AllowedIPs = ${CLIENT_IP}/32
 EOL
 
 # Restart the WireGuard container
-docker-compose restart wireguard
+docker compose restart wireguard
 
 # Print useful details
 LOCAL_CFG_NAME=$(echo "$CLIENT_COMMENT" | sed 's/[^a-zA-Z0-9 ]/-/g'  | awk 'BEGIN{FS=OFS="-"} {gsub(/^-+|-+$/, "", $0)} 1')
@@ -125,5 +125,5 @@ echo "scp ${USER}@${SERVER_URL}:$(pwd)/config/peer${PEER_ID}/peer${PEER_ID}.conf
 echo
 
 # Generate QR code after restarting WireGuard
-docker-compose exec -T wireguard qrencode -t ansiutf8 < ./config/peer${PEER_ID}/peer${PEER_ID}.conf
+docker compose exec -T wireguard qrencode -t ansiutf8 < ./config/peer${PEER_ID}/peer${PEER_ID}.conf
 
