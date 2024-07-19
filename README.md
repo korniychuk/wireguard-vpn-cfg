@@ -32,3 +32,20 @@ Add to [Deploy keys](https://github.com/korniychuk/wireguard-vpn-cfg/settings/ke
 git clone git@github.com:korniychuk/wireguard-vpn-cfg.git wireguard-vpn
 ```
 
+### Generate custom SSH Keys
+```sh
+ssh-keygen -t ed25519 -C "some comment" -f ~/.ssh/xxxx_ed25519
+```
+
+### Fix Disconnect • Устранить разрыв соединений
+
+- in `/etc/ssh/sshd_config`
+```
+ClientAliveInterval 120
+ClientAliveCountMax 3
+```
+
+- Restart
+    - `sudo systemctl restart sshd` _(Debian/Amazon Linux)_
+    - `sudo systemctl restart ssh` _(Ubuntu)_
+
