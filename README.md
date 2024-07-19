@@ -2,14 +2,20 @@
 
 A simple Docker Compose config and scripts to create a personal VPN on any VPS
 
+### Preconfigure system
+
+1. Add a custom user, make it sudo'er
+2. Add ssh-key to login without password
+
 ### Install Docker & Docker Compose
 
 - https://docs.docker.com/engine/install/ubuntu/
 - https://docs.docker.com/compose/install/linux/
+- [Linux post-installation steps - non-root user • Doc](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
 
 ### Usage
 ```sh
-git clone https://github.com/korniychuk/wireguard-vpn-cfg.git wireguard-vpn
+git clone --depth=1 https://github.com/korniychuk/wireguard-vpn-cfg.git wireguard-vpn
 cd wireguard-vpn
 
 ./init.sh
